@@ -99,7 +99,13 @@ class Parser
     end
     
     # replace 'n' with our national_prefix if it exists
-    phone_number.gsub!(/n{1}/, national_prefix)
+    if(phone_number[/n/])
+      phone_number.gsub!(/n{1}/, national_prefix)
+      
+      # reset the national_prefix so we don't add it twice
+      national_prefix = ''
+    end
+    
     phone_number.lstrip!
     
     if(phone_number[/c/])
