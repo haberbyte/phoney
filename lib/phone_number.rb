@@ -1,6 +1,6 @@
-require 'rubygems'
 require 'active_support'
 require File.join(File.dirname(__FILE__), 'region')
+require File.join(File.dirname(__FILE__), 'parser')
 
 # An object representing a phone number.
 #
@@ -10,14 +10,23 @@ require File.join(File.dirname(__FILE__), 'region')
 # * number - e.g. '5125486', '451588'
 #
 # All parts are mandatory, but country code and area code can be set for all phone numbers using
-# PhoneNumber.default_country_code
-# PhoneNumber.default_area_code
+# Phone.default_country_code
+# Phone.default_area_code
 #----------------------------------------------------------------------------
 class PhoneNumber
+  NUMBER = '([^0][0-9]{1,7})$'
+  DEFAULT_AREA_CODE = '[2-9][0-8][0-9]' # USA
+  
   attr_accessor :country_code, :area_code, :number
   
   cattr_accessor :default_country_code
   cattr_accessor :default_area_code
+  cattr_accessor :named_formats
+  
+  # length of first number part (using multi number format)
+  cattr_accessor :n1_length
+  # default length of first number part
+  @@n1_length = 3
   
   @@named_formats = {
     :default => "+%c%a%n",
@@ -33,24 +42,34 @@ class PhoneNumber
     else
       keys = {:number => 0, :area_code => 1, :country_code => 2}
     end
-
+    
     self.number = hash_or_args[ keys[:number] ]
     self.area_code = hash_or_args[ keys[:area_code] ] || self.default_area_code
     self.country_code = hash_or_args[ keys[:country_code] ] || self.default_country_code
-
+ 
     raise "Must enter number" if self.number.blank?
     raise "Must enter area code or set default area code" if self.area_code.blank?
     raise "Must enter country code or set default country code" if self.country_code.blank?
   end
   
-  # Create a new phone number by parsing a string
-  # The format of the string is detect automatically (from FORMATS)
+  # create a new phone number by parsing a string
+  # the format of the string is detected automatically
   #----------------------------------------------------------------------------
-  def self.parse(phone_number, locale)
-    self.format(phone_number, locale)
+  def self.parse(string, options={})
+    if string.present?
+      Country.load
+      string = normalize(string)
+      
+      options[:country_code] ||= self.default_country_code
+      options[:area_code] ||= self.default_area_code
+      
+      parts = split_to_parts(string, options)
+      
+      pn = Phone.new(parts) if parts
+    end
   end
   
-  # Is this string a valid phone number?
+  # is this string a valid phone number?
   #----------------------------------------------------------------------------
   def self.valid?(string)
     begin
@@ -60,88 +79,151 @@ class PhoneNumber
     end
   end
   
+  # split string into hash with keys :country_code, :area_code and :number
+  #----------------------------------------------------------------------------
+  def self.split_to_parts(string, options = {})
+    country = detect_country(string)
+    
+    if country
+      options[:country_code] = country.country_code
+      string = string.gsub(country.country_code_regexp, '0')
+    else
+      if options[:country_code]
+        country = Country.find_by_country_code options[:country_code]
+      end
+    end
+    
+    if country.nil?
+      if options[:country_code].nil?
+        raise "Must enter country code or set default country code"
+      else
+        raise "Could not find country with country code #{options[:country_code]}"
+      end
+    end
+            
+    format = detect_format(string, country)
+    
+    return nil if format.nil?
+ 
+    parts = string.match formats(country)[format]
+ 
+    case format
+      when :short
+        {:number => parts[2], :area_code => parts[1], :country_code => options[:country_code]}
+      when :really_short
+        {:number => parts[1], :area_code => options[:area_code], :country_code => options[:country_code]}
+    end
+  end
+  
+  # detect country from the string entered
+  #----------------------------------------------------------------------------
+  def self.detect_country(string)
+    detected_country = nil
+    # find if the number has a country code
+    Country.all.each_pair do |country_code, country|
+      if string =~ country.country_code_regexp
+        detected_country = country
+      end
+    end
+    detected_country
+  end
+  
+  def self.formats(country)
+    area_code_regexp = country.area_code || DEFAULT_AREA_CODE
+    {
+      # 047451588, 013668734
+      :short => Regexp.new('^0(' + area_code_regexp + ')' + NUMBER),
+      # 451588
+      :really_short => Regexp.new('^' + NUMBER)
+    }
+  end
+  
+  # detect format (from FORMATS) of input string
+  #----------------------------------------------------------------------------
+  def self.detect_format(string_with_number, country)
+    arr = []
+    formats(country).each_pair do |format, regexp|
+      arr << format if string_with_number =~ regexp
+    end
+    
+    raise "Detected more than 1 format for #{string_with_number}" if arr.size > 1
+    arr.first
+  end
+  
+  # fix string so it's easier to parse, remove extra characters etc.
+  #----------------------------------------------------------------------------
+  def self.normalize(string_with_number)
+    string_with_number.gsub("(0)", "").gsub(/[^0-9+]/, '').gsub(/^00/, '+')
+  end
+  
+  # format area_code with trailing zero (e.g. 91 as 091)
+  #----------------------------------------------------------------------------
+  def area_code_long
+    "0" + area_code if area_code
+  end
+  
+  # first n characters of :number
+  #----------------------------------------------------------------------------
+  def number1
+    number[0...self.class.n1_length]
+  end
+  
+  # everything left from number after the first n characters (see number1)
+  #----------------------------------------------------------------------------
+  def number2
+    n2_length = number.size - self.class.n1_length
+    number[-n2_length, n2_length]
+  end
+  
+  # Formats the phone number.
+  #
+  # if the method argument is a String, it is used as a format string, with the following fields being interpolated:
+  #
+  # * %c - country_code (385)
+  # * %a - area_code (91)
+  # * %A - area_code with leading zero (091)
+  # * %n - number (5125486)
+  # * %n1 - first @@n1_length characters of number (configured through Phone.n1_length), default is 3 (512)
+  # * %n2 - last characters of number (5486)
+  #
+  # if the method argument is a Symbol, it is used as a lookup key for a format String in Phone.named_formats
+  # pn.format(:europe)
+  #----------------------------------------------------------------------------
+  def format(fmt)
+    if fmt.is_a?(Symbol)
+      raise "The format #{fmt} doesn't exist'" unless named_formats.has_key?(fmt)
+      format_number named_formats[fmt]
+    else
+      format_number(fmt)
+    end
+  end
+  
+  # the default format is "+%c%a%n"
+  #----------------------------------------------------------------------------
+  def to_s
+    format(:default)
+  end
+  
+  # does this number belong to the default country code?
+  #----------------------------------------------------------------------------
+  def has_default_country_code?
+    country_code == self.class.default_country_code
+  end
+  
+  # does this number belong to the default area code?
+  #----------------------------------------------------------------------------
+  def has_default_area_code?
+    area_code == self.class.default_area_code
+  end
+  
   private
-  # Checks if an input string/char is a valid character
-  # that can be typed with a phone numberpad.
   #----------------------------------------------------------------------------
-  def self.is_valid_phone_pad_input?(input)
-    input =~ /^[0-9*+#]+$/ ? true : false
+  def format_number(fmt)
+    fmt.gsub("%c", country_code || "").
+           gsub("%a", area_code || "").
+           gsub("%A", area_code_long || "").
+           gsub("%n", number || "").
+           gsub("%f", number1 || "").
+           gsub("%l", number2 || "")
   end
-  
-  # Strip all non-numberpad characters from a string
-  # => For example: "+45 (123) 023 1.1.1" -> "+45123023111"
-  #----------------------------------------------------------------------------
-  def self.strip_invalid_characters(phone_number)
-    phone_number.scan(/[0-9+*#]/).to_s
-  end
-  
-  #----------------------------------------------------------------------------
-  def self.format(phone_number, locale)
-    input = strip_invalid_characters(phone_number)
-    res = ""
-    idx = 0
-    formats = []
-    
-    # if the input starts with '+X', add all formats of all regions that start with '+X'
-    if(input.length > 1 && input[0,1] == '+')
-      formats += Region.find_formats_with(Regexp.new("^[+]#{input[1,1]}"))
-    end
-    
-    formats += Region.find(locale.downcase).formats
-
-    # Go through each formatting expression in the formats array
-    formats.each_with_index do |fmt,index|
-      idx = index
-      i = 0
-      p = 0
-      temp = ""
-      
-      # Finite State Machine where the magic happens
-      # The loop breaks once a 'match' is found, which is why we had to sort the formats array!
-      while(temp != nil && i < input.length && p < fmt.length) do
-        c = fmt[p,1]
-        required = is_valid_phone_pad_input?(c)
-        next_input = input[i,1]
-
-        case c
-        when '$'
-          temp += next_input
-          i += 1
-          p -= 1
-        when '#'
-          temp += next_input
-          i += 1
-        else
-          if(required)
-            if(next_input != c)
-              temp = nil
-              break
-            end
-            temp += next_input
-            i += 1
-          else
-            temp += c
-            if(next_input == c)
-              i += 1
-            end
-          end
-        end
-
-        p += 1
-      end
-
-      if(i == input.length)
-        res = temp
-        break
-      end
-    end
-
-    if(res.length == 0)
-      return input
-    end
-    
-    # puts "formatting rule that applies: #{formats[idx]}"
-    return res
-  end
-
 end
