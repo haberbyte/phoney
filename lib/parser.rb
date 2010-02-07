@@ -108,6 +108,10 @@ class Parser
     
     phone_number.lstrip!
     
+    puts "dialout: #{dialout_prefix}"
+    puts "phone_number: #{phone_number}"
+    puts "dialout_country: #{dialout_country}"
+    
     if(phone_number[/c/])
       # we have a specific country code formatting rule
       if(dialout_prefix == '+')
@@ -119,7 +123,11 @@ class Parser
     else
       # default formatting
       if(dialout_prefix == '+')
-        phone_number = "+#{dialout_country} #{phone_number}"
+        if(dialout_country.empty?)
+          phone_number = "+#{phone_number}"
+        else
+          phone_number = "+#{dialout_country} #{phone_number}"
+        end
       else
         phone_number = "#{dialout_country} #{phone_number}" unless dialout_country.empty?
         phone_number = "#{dialout_prefix} #{phone_number}" unless dialout_prefix.empty?
