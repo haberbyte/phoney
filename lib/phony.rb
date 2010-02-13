@@ -1,0 +1,5 @@
+require File.join(File.dirname(__FILE__), 'phony', 'version')
+require File.join(File.dirname(__FILE__), 'phony', 'utils')
+require File.join(File.dirname(__FILE__), 'phony', 'region')
+require File.join(File.dirname(__FILE__), 'phony', 'parser')
+require File.join(File.dirname(__FILE__), 'phony', 'base')
