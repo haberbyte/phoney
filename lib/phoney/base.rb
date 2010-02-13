@@ -36,6 +36,9 @@ class PhoneNumber
   end
 
   def initialize(params, region_code=nil)
+    region       = Region.find(region_code)
+    country_code = region.country_code.to_s if region
+    
     if params.is_a?(String)
       params = Parser.parse_to_parts(params, region_code)
     end 
@@ -43,7 +46,7 @@ class PhoneNumber
     self.number = params[:number]
     # Can be empty, because some special numbers just don't have an area code (e.g. 911)
     self.area_code = params[:area_code] || self.class.default_area_code
-    self.country_code = params[:country_code] || self.class.default_country_code
+    self.country_code = params[:country_code] || country_code || self.class.default_country_code
 
     raise "Must enter number" if(self.number.nil? || self.number.empty?)
     raise "Must enter country code or set default country code" if(self.country_code.nil? || self.country_code.empty?)
