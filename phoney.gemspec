@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
+     "LICENCE",
      "README.rdoc",
      "Rakefile",
      "lib/data/regions.yml",
