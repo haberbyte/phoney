@@ -22,9 +22,9 @@ class PhoneNumber
         country_code    = region.country_code.to_s
         area_code       = nil
 
-        dialout_prefix  = get_dialout_prefix(phone_number, region.dialout_prefixes)
-        national_prefix = get_national_prefix(phone_number, region.national_prefix)
-        dialout_region  = get_dialout_region(phone_number, dialout_prefix)
+        dialout_prefix  = get_dialout_prefix(phone_number, region)
+        national_prefix = get_national_prefix(phone_number, region)
+        dialout_region  = get_dialout_region(phone_number, region)
         dialout_country = ''
         rule_sets       = get_rule_sets_for_region(phone_number, dialout_region || region)
         
@@ -140,17 +140,15 @@ class PhoneNumber
         match
       end
       
-      def dialing_out?(string, region_code=nil)
-        region = Region.find(region_code) || PhoneNumber.region
-        !get_dialout_prefix(string, region.dialout_prefixes).empty?
+      def dialing_out?(string, region=nil)
+        region ||= PhoneNumber.region
+        !get_dialout_prefix(string, region).empty?
       end
             
-      def get_dialout_prefix(string, prefixes=nil)
+      def get_dialout_prefix(string, region=nil)
+        region ||= PhoneNumber.region
+        prefixes = region.dialout_prefixes
         dialout_prefix = ''
-        
-        if(prefixes.nil?)
-          prefixes = PhoneNumber.region.dialout_prefixes
-        end
         
         # check if we're dialing outside our region
         if string[0].chr == '+'
@@ -167,22 +165,22 @@ class PhoneNumber
         dialout_prefix
       end
       
-      def get_national_prefix(string, prefix=nil)
+      def get_national_prefix(string, region=nil)
+        region ||= PhoneNumber.region
+        prefix = region.national_prefix
         national_prefix = ''
-        
-        if(prefix.nil?)
-          prefix = PhoneNumber.region.national_prefix
-        end
 
         # in case we're not dialing out and the number starts with the national_prefix
-        if(!dialing_out?(string) && string =~ Regexp.new("^#{prefix}"))
+        if(!dialing_out?(string, region) && string =~ Regexp.new("^#{prefix}"))
           national_prefix = prefix
         end
 
         national_prefix
       end
       
-      def get_dialout_region(string, dialout_prefix)
+      def get_dialout_region(string, region)
+        region ||= PhoneNumber.region
+        dialout_prefix = get_dialout_prefix(string, region)
         dialout_region = nil
         
         unless dialout_prefix.empty?
