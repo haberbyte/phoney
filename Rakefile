@@ -1,42 +1,8 @@
-require 'lib/phoney'
-require 'rake/clean'
- 
-#### TESTING ####
-require 'rake/testtask'
-task :default => :test
- 
-Rake::TestTask.new do |t|
-  t.libs << "test"
-  t.test_files = FileList['test/*_test.rb']
-  t.verbose = true
-end
- 
-#### COVERAGE ####
-begin
-  require 'rcov/rcovtask'
- 
-  Rcov::RcovTask.new do |t|
-    t.libs << "test"
-    t.test_files = FileList['test/*_test.rb']
-    t.verbose = true
-    t.rcov_opts << '--exclude "gems/*"'
-  end
-rescue LoadError
-end
- 
-#### DOCUMENTATION ####
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  rdoc.rdoc_dir = 'doc/rdoc'
-  rdoc.template = ENV['template'] if ENV['template']
-  rdoc.title = "PhoneNumber Documentation"
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.options << '--charset' << 'utf-8'
-  rdoc.rdoc_files.include('README.rdoc')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
+require 'rubygems'
+require 'spec/rake/spectask'
 
-#### GEMSPEC #####
+require 'lib/phoney'
+
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
@@ -51,4 +17,21 @@ begin
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler not available. Install it with: gem install jeweler"
+end
+ 
+require 'spec/rake/spectask'
+Spec::Rake::SpecTask.new(:spec) do |spec|
+  spec.libs << 'lib' << 'spec'
+  spec.spec_files = FileList['spec/**/*_spec.rb']
+end
+ 
+require 'rake/rdoctask'
+Rake::RDocTask.new do |rdoc|
+  rdoc.rdoc_dir = 'doc/rdoc'
+  rdoc.template = ENV['template'] if ENV['template']
+  rdoc.title = "Phoney Documentation"
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.options << '--charset' << 'utf-8'
+  rdoc.rdoc_files.include('README.rdoc')
+  rdoc.rdoc_files.include('lib/**/*.rb')
 end

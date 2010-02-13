@@ -1,11 +1,18 @@
-require File.dirname(__FILE__) + '/test_helper'
- 
-class PhoneNumberTest < Test::Unit::TestCase
+require File.dirname(__FILE__) + '/spec_helper'
+
+describe PhoneNumber do
   
-  def test_number_with_default_settings
-    pn = PhoneNumber.new '7045689780'
-    assert pn.to_s == "+1 (704) 568-9780"
+  describe "with default settings" do
+    
+    it "should format a valid number according to [:us] formatting" do
+      pn = PhoneNumber.new '7041234567'
+      pn.to_s == "+1 (704) 123-4567"
+    end
+    
   end
+  
+end
+
   
   # def test_number_without_country_code_initialize
   #     PhoneNumber.default_country_code = nil
@@ -209,4 +216,3 @@ class PhoneNumberTest < Test::Unit::TestCase
   #     assert_equal PhoneNumber.parse('047/451-588').has_default_area_code?, true
   #     assert_equal PhoneNumber.parse('032/336-1456').has_default_area_code?, false
   #   end
-end
