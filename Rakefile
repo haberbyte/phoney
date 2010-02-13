@@ -34,3 +34,19 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+#### GEM #####
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "phone_number"
+    gem.summary = %Q{Ruby library that parses a phone number and automatically formats it correctly, depending on the country/locale you set.}
+    gem.description = %Q{Ruby library that parses a phone number and automatically formats it correctly, depending on the country/locale you set.}
+    gem.email = "jan@habermann24.com"
+    gem.homepage = "http://github.com/habermann24/phone_number"
+    gem.authors = ["Jan Habermann"]
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+end
