@@ -6,7 +6,7 @@ describe PhoneNumber do
     
     it "should format a valid number according to [:us] formatting" do
       pn = PhoneNumber.new '7041234567'
-      pn.to_s == "+1 (704) 123-4567"
+      pn.to_s.should == "+1 (704) 123-4567"
     end
     
   end
