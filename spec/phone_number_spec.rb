@@ -4,7 +4,7 @@ describe PhoneNumber do
   
   describe "with region set to [:us]" do
     before(:each) do
-      PhoneNumber.region = :us
+      PhoneNumber.default_region = :us
     end
     
     it "should format a valid number according to [:us] formatting" do

@@ -4,7 +4,7 @@ describe PhoneNumber::Parser do
   
   describe "with region set to [:de] (Germany)" do
     before(:each) do
-      PhoneNumber.region = :de
+      PhoneNumber.default_region = :de
     end
   
     describe "given a valid phone number" do

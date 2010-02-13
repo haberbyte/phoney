@@ -4,7 +4,7 @@ describe PhoneNumber::Parser do
   
   describe "with region set to [:us]" do
     before(:each) do
-      PhoneNumber.region = :us
+      PhoneNumber.default_region = :us
     end
     
     it "should format a [:us] (USA) phone number" do

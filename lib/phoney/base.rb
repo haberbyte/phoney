@@ -2,11 +2,11 @@ class PhoneNumber
   attr_accessor :country_code, :area_code, :number
   
   class << self
-    def region
+    def default_region
       @@region ||= Region[:us]
     end
 
-    def region=(region)
+    def default_region=(region)
       if region.is_a?(Region)
         @@region = region
       else
@@ -15,7 +15,7 @@ class PhoneNumber
     end
 
     def default_country_code
-      @@country_code ||= region.country_code.to_s
+      @@country_code ||= default_region.country_code.to_s
     end
 
     def default_country_code=(country_code)

@@ -18,7 +18,7 @@ class PhoneNumber
           return { :formatted_number => phone_number, :number => phone_number }
         end
 
-        region          = Region.find(region_code) || PhoneNumber.region
+        region          = Region.find(region_code) || PhoneNumber.default_region
         country_code    = region.country_code.to_s
         area_code       = nil
 
@@ -146,12 +146,12 @@ class PhoneNumber
       end
       
       def dialing_out?(string, region=nil)
-        region ||= PhoneNumber.region
+        region ||= PhoneNumber.default_region
         !get_dialout_prefix(string, region).empty?
       end
             
       def get_dialout_prefix(string, region=nil)
-        region ||= PhoneNumber.region
+        region ||= PhoneNumber.default_region
         prefixes = region.dialout_prefixes
         dialout_prefix = ''
         
@@ -171,7 +171,7 @@ class PhoneNumber
       end
       
       def get_national_prefix(string, region=nil)
-        region ||= PhoneNumber.region
+        region ||= PhoneNumber.default_region
         prefix = region.national_prefix
         national_prefix = ''
 
@@ -184,7 +184,7 @@ class PhoneNumber
       end
       
       def get_dialout_region(string, region)
-        region ||= PhoneNumber.region
+        region ||= PhoneNumber.default_region
         dialout_prefix = get_dialout_prefix(string, region)
         dialout_region = nil
         
