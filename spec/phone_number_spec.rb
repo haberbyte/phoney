@@ -2,7 +2,10 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 describe PhoneNumber do
   
-  describe "with default settings" do
+  describe "with region set to [:us]" do
+    before(:each) do
+      PhoneNumber.region = :us
+    end
     
     it "should format a valid number according to [:us] formatting" do
       pn = PhoneNumber.new '7041234567'

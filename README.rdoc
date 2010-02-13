@@ -10,15 +10,27 @@ Source:: <tt>git clone git://github.com/habermann24/phoney.git</tt>
 
 == Feature overview
 
-* Create from phone number by parsing a string
+* Create phone number by parsing a string
 
     require 'phoney'
     # region defaults to US
-    pn = PhoneNumber.new("7041234567")
+    pn = PhoneNumber.new("+17041234567")
     pn.to_s          # "+1 (704) 123-4567"
-    ip.area_code     # "704"
-    ip.country_code  # "1"
-    ip.number        # "1234567"
+    pn.area_code     # "704"
+    pn.country_code  # "1"
+    pn.number        # "1234567"
+    
+* Deals with many specific region formatting rules (e.g. DE)
+
+    require 'phoney'
+    
+    PhoneNumber.region = :de
+    
+    pn = PhoneNumber.new("04105456789")
+    pn.to_s           # "04105 456789"
+    pn.area_code      # "4105"
+    pn.country_code   # "49"
+    pn.number         # "456789"
 
 == Copying
 

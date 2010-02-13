@@ -1,5 +1,4 @@
 require 'strscan'
-require 'pp'
 
 class PhoneNumber
 
@@ -15,7 +14,9 @@ class PhoneNumber
         phone_number = normalize(phone_number.to_s)
 
         # we don't really need to do anything unless we get more input
-        return phone_number unless phone_number.length > 1
+        unless phone_number.length > 1
+          return { :formatted_number => phone_number, :number => phone_number }
+        end
 
         region          = Region.find(region_code) || PhoneNumber.region
         country_code    = region.country_code.to_s
@@ -44,10 +45,13 @@ class PhoneNumber
         # if we're dialing out or using the national prefix
         if(dialout_region || !national_prefix.empty?)
           # we need to sort the rules slightly different
+          prefered_type = dialout_region.nil? ? 1 : 2
           
           rule_sets.each do |rule_set|
-            # [rule type DESC, total_digits ASC]
-            rule_set[:rules] = rule_set[:rules].sort_by { |rule| [ -rule[:type], rule[:total_digits] ] }
+            rule_set[:rules] = rule_set[:rules].sort_by do |rule|
+              # [ prefered rule type ASC, total_digits ASC ]
+              [ (rule[:type]==prefered_type) ? -1 : rule[:type], rule[:total_digits] ]
+            end
           end
         end
 
@@ -58,14 +62,21 @@ class PhoneNumber
           area_code     = phone_number[matching_rule[:areacode_offset], matching_rule[:areacode_length]]
           number        = phone_number[matching_rule[:areacode_offset]+matching_rule[:areacode_length]..-1]
           phone_number  = format(phone_number, matching_rule[:format].to_s)
+        
+          # replace 'n' with our national_prefix if it exists
+          if(phone_number[/n/])
+            phone_number.gsub!(/n{1}/, national_prefix)
+
+            # reset the national_prefix so we don't add it twice
+            national_prefix = ''
+          end
+        end
           
-          # replace 'n' with our national_prefix
-          phone_number.gsub!(/n{1}/, national_prefix)
-          
-          # strip possible whitespace from the left
-          phone_number.lstrip!
-          
-          # format the rest
+        # strip possible whitespace from the left
+        phone_number.lstrip!
+        
+        if(matching_rule && phone_number[/c/])  
+          # format the country code
           if(dialout_prefix == '+')
             phone_number.gsub!(/c{1}/, "+#{dialout_country}")
           else
@@ -73,7 +84,7 @@ class PhoneNumber
             phone_number = "#{dialout_prefix} #{phone_number}" unless dialout_prefix.empty?
           end
         else
-          # no match: falling back to default formatting
+          # default formatting
           if(dialout_prefix == '+')
             if(dialout_country.empty?)
               phone_number = "+#{phone_number}"

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PhoneNumber::Parser do
   
-  describe "without region set to [:us]" do
+  describe "with region set to [:us]" do
     before(:each) do
       PhoneNumber.region = :us
     end
