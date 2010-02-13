@@ -42,7 +42,9 @@ The most common way to create a PhoneNumber object is by parsing from a string:
   
 Or instead of parsing a string, you can provide a hash for the first parameter:
   PhoneNumber.new(:number => "1231234", :area_code => "704", :country_code => "1")
-  PhoneNumber.new(:number => "1231234", :area_code => "704") # fall back to US region, so also uses "1" for <tt>country_code</tt>
+  
+  # falls back to US region, so also uses "1" for <tt>country_code</tt>
+  PhoneNumber.new(:number => "1231234", :area_code => "704")
   
 == Formatting  
 Formating is done via the <tt>format</tt> method. The method accepts a <tt>Symbol</tt> or a <tt>String</tt>.
