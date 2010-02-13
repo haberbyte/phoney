@@ -24,14 +24,52 @@ Source:: <tt>git clone git://github.com/habermann24/phoney.git</tt>
 
     require 'phoney'
     
-    PhoneNumber.region = :de
+    PhoneNumber.default_region = :de
     
     pn = PhoneNumber.new("04105456789")
-    pn.to_s           # "04105 456789"
+    pn.to_s           # "+49 4105 456789"
     pn.area_code      # "4105"
     pn.country_code   # "49"
     pn.number         # "456789"
+    
+== Creating PhoneNumber instances
+Phoney gives you a PhoneNumber class that wraps all the logic of phone number parsing and representation.
+The default region phoney uses for formatting is the US-region format. So if you want to parse phone numbers from a different country, you have to set PhoneNumber.default_region or pass the region code every time!
 
-== Copying
+The most common way to create a PhoneNumber object is by parsing from a string:
+  PhoneNumber.new("7041231234")         # uses region :us
+  PhoneNumber.new("01805708090", :de)   # uses region :de
+  
+Or instead of parsing a string, you can provide a hash for the first parameter:
+  PhoneNumber.new(:number => "1231234", :area_code => "704", :country_code => "1")
+  PhoneNumber.new(:number => "1231234", :area_code => "704") # fall back to US region, so also uses "1" for <tt>country_code</tt>
+  
+== Formatting  
+Formating is done via the <tt>format</tt> method. The method accepts a <tt>Symbol</tt> or a <tt>String</tt>.
 
-see LICENSE.txt
+When given a string, it interpolates the string with the following fields:
+
+* %c - country_code (385)
+* %a - area_code (91)
+* %n - number (5125486)
+
+    pn = PhoneNumber.new('+446546546546')
+    pn.to_s # => "+44 65 4654 6546"
+    pn.format("%a/%n") # => "64/46546546"
+    pn.format("+ %c (%a) %n") # => "+ 44 (65) 46546546"
+    
+Usually you will just want PhoneNumber to figure out how to format the number correctly.
+When given a symbol you can let the parser guess the best format and pass in one of the following auto-formatting symbols:
+    pn.format(:default) # => "+44 65 4654 6546"
+    # :national omits the country code and assumes a representation within the region
+    pn.format(:national) # => "65 4654 6546"
+    # :local even omits the area code and assumes a default area, so be careful!
+    pn.format(:local) # => "46 5465 46"
+
+== TODOs
+- More test specs for different countries
+- Regions with dialout prefixes that use wild-cards are not yet implemented
+
+== Licence
+
+see LICENSE

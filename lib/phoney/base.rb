@@ -43,10 +43,10 @@ class PhoneNumber
       params = Parser.parse_to_parts(params, region_code)
     end 
 
-    self.number = params[:number]
+    self.number = params[:number].to_s
     # Can be empty, because some special numbers just don't have an area code (e.g. 911)
-    self.area_code = params[:area_code] || self.class.default_area_code
-    self.country_code = params[:country_code] || country_code || self.class.default_country_code
+    self.area_code = params[:area_code].to_s || self.class.default_area_code
+    self.country_code = params[:country_code].to_s || country_code || self.class.default_country_code
 
     raise "Must enter number" if(self.number.nil? || self.number.empty?)
     raise "Must enter country code or set default country code" if(self.country_code.nil? || self.country_code.empty?)
