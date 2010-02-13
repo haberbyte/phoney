@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{phoney}
-  s.version = "0.0.1"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jan Habermann"]
@@ -13,10 +13,11 @@ Gem::Specification.new do |s|
   s.description = %q{Ruby library that parses a phone number and automatically formats it correctly, depending on the country/locale you set.}
   s.email = %q{jan@habermann24.com}
   s.extra_rdoc_files = [
-    "README"
+    "README.rdoc"
   ]
   s.files = [
-    "README",
+    ".gitignore",
+     "README.rdoc",
      "Rakefile",
      "lib/data/regions.yml",
      "lib/phoney.rb",
@@ -25,8 +26,12 @@ Gem::Specification.new do |s|
      "lib/phoney/region.rb",
      "lib/phoney/utils.rb",
      "lib/phoney/version.rb",
-     "test/phone_number_test.rb",
-     "test/test_helper.rb"
+     "phoney.gemspec",
+     "spec/parser/de_spec.rb",
+     "spec/parser/us_spec.rb",
+     "spec/phone_number_spec.rb",
+     "spec/spec.opts",
+     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/habermann24/phoney}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -34,8 +39,10 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Ruby library that formats phone numbers.}
   s.test_files = [
-    "test/phone_number_test.rb",
-     "test/test_helper.rb"
+    "spec/parser/de_spec.rb",
+     "spec/parser/us_spec.rb",
+     "spec/phone_number_spec.rb",
+     "spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
