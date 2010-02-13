@@ -1,0 +1,25 @@
+= phoney library
+
+This is a library for representing phone numbers.
+It provides a PhoneNumber class that can format phone numbers depending on the region you set.
+
+== Installation
+
+Gem:: <tt>gem install phoney</tt>
+Source:: <tt>git clone git://github.com/habermann24/phoney.git</tt>
+
+== Feature overview
+
+* Create from phone number by parsing a string
+
+    require 'phoney'
+    # region defaults to US
+    pn = PhoneNumber.new("7041234567")
+    pn.to_s          # "+1 (704) 123-4567"
+    ip.area_code     # "704"
+    ip.country_code  # "1"
+    ip.number        # "1234567"
+
+== Copying
+
+see LICENSE.txt
