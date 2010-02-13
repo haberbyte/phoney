@@ -1,0 +1,11 @@
+Still under development...early alpha ;) ...
+
+Example:
+
+  require 'lib/phone_number'
+
+  PhoneNumber.default_region = :de
+
+  PhoneNumber.new("04012345678")
+  PhoneNumber.new("+1 7045432123")
+  PhoneNumber.new(:country_code => "44", :area_code => "60", :number => "123456")
