@@ -42,22 +42,26 @@ class PhoneNumber
         phone_number = phone_number[prefix.length..-1]
         number       = phone_number
         
+        prefered_type = 0 # for sorting the priority
+        
         # if we're dialing out or using the national prefix
         if(dialout_region || !national_prefix.empty?)
           # we need to sort the rules slightly different
           prefered_type = dialout_region.nil? ? 1 : 2
-          
-          rule_sets.each do |rule_set|
-            rule_set[:rules] = rule_set[:rules].sort_by do |rule|
-              # [ prefered rule type ASC, total_digits ASC ]
-              [ (rule[:type]==prefered_type) ? -1 : rule[:type], rule[:total_digits] ]
-            end
+        end
+        
+        # sorting for rule priorities
+        rule_sets.each do |rule_set|
+          rule_set[:rules] = rule_set[:rules].sort_by do |rule|
+            # [ prefered rule type ASC, total_digits ASC ]
+            [ (rule[:type]==prefered_type) ? -1 : rule[:type], rule[:total_digits] ]
           end
         end
-
-        # find our matching rule
+        
+        # finally...find our matching rule
         matching_rule = find_matching_rule(phone_number, rule_sets)
         
+        # now that know how to format the number, do the formatting work...
         if(matching_rule)
           area_code     = phone_number[matching_rule[:areacode_offset], matching_rule[:areacode_length]]
           number        = phone_number[matching_rule[:areacode_offset]+matching_rule[:areacode_length]..-1]
@@ -98,8 +102,9 @@ class PhoneNumber
           end
         end
         
-        # strip possible whitespace from the right
+        # strip possible whitespace
         phone_number.rstrip!
+        phone_number.lstrip!
         
         # Finally...we can output our parts as a hash
         { :formatted_number => phone_number, :area_code => area_code, :country_code => country_code, :number => number }
@@ -107,7 +112,7 @@ class PhoneNumber
       
       private
       def get_rule_sets_for_region(string, region)
-        rule_sets = []
+        rule_sets      = []
         
         if(region && region.rule_sets)
           rule_sets = region.rule_sets.select do |rule_set|
