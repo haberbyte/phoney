@@ -1,4 +1,4 @@
-require 'lib/phone_number'
+require 'lib/phoney'
 require 'rake/clean'
  
 #### TESTING ####
@@ -40,8 +40,8 @@ end
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "phony"
-    gem.summary = %Q{Ruby library that parses a phone number and automatically formats it correctly, depending on the country/locale you set.}
+    gem.name = "phoney"
+    gem.summary = %Q{Ruby library that formats phone numbers.}
     gem.description = %Q{Ruby library that parses a phone number and automatically formats it correctly, depending on the country/locale you set.}
     gem.email = "jan@habermann24.com"
     gem.homepage = "http://github.com/habermann24/phone_number"
