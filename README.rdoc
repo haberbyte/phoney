@@ -37,6 +37,8 @@ Source:: <tt>git clone git://github.com/habermann24/phoney.git</tt>
 Phoney gives you a PhoneNumber class that wraps all the logic of phone number parsing and representation.
 The default region phoney uses for formatting is the US-region format. So if you want to parse phone numbers from a different country, you have to set PhoneNumber.default_region or pass the region code every time!
 
+  PhoneNumber.default_region = :us
+
 The most common way to create a PhoneNumber object is by parsing from a string:
   PhoneNumber.new("7041231234")         # uses region :us
   PhoneNumber.new("01805708090", :de)   # uses region :de
