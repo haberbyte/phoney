@@ -44,7 +44,7 @@ begin
     gem.summary = %Q{Ruby library that formats phone numbers.}
     gem.description = %Q{Ruby library that parses a phone number and automatically formats it correctly, depending on the country/locale you set.}
     gem.email = "jan@habermann24.com"
-    gem.homepage = "http://github.com/habermann24/phone_number"
+    gem.homepage = "http://github.com/habermann24/phoney"
     gem.authors = ["Jan Habermann"]
     gem.version = PhoneNumber.version
   end
