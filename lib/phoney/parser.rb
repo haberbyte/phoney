@@ -146,6 +146,9 @@ class PhoneNumber
         { :formatted_number => phone_number.rstrip, :area_code => area_code, :country_code => country_code, :number => number }
       end
     end
+    
+    private
+    
   end
 
 end

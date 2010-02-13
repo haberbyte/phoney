@@ -36,7 +36,7 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-#### GEM #####
+#### GEMSPEC #####
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
@@ -50,5 +50,5 @@ begin
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+  puts "Jeweler not available. Install it with: gem install jeweler"
 end
