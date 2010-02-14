@@ -1,9 +1,3 @@
-= WARNING
-
-This is in a very early stage and I know there is still some, maybe alot?, bugs left to fix.
-So if you want to try this out fine, but in order to really use this, you should probably just wait a few days...
-I'm fixing those bugs just now :-)
-
 = phoney
 
 This is a library for representing phone numbers.
