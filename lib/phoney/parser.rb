@@ -26,22 +26,28 @@ class PhoneNumber
         national_prefix = get_national_prefix(phone_number, region)
         dialout_region  = get_dialout_region(phone_number, region)
         dialout_country = ''
-        rule_sets       = get_rule_sets_for_region(phone_number, dialout_region || region)
+        
+        # No dialout prefix without a dialout region, and no dialout region without a prefix
+        if((dialout_region && dialout_prefix.empty?) || (!dialout_region && !dialout_prefix.empty?))
+          rule_sets = []
+        else
+          rule_sets = get_rule_sets_for_region(phone_number, dialout_region || region)
+        end
         
         # build our total prefix
         if dialout_region
-          prefix       = dialout_prefix.delete(' ') + dialout_region.country_code.to_s
-          country_code = dialout_region.country_code.to_s
+          prefix          = dialout_prefix.delete(' ') + dialout_region.country_code.to_s
+          country_code    = dialout_region.country_code.to_s
           dialout_country = country_code
         else
           prefix  = national_prefix
-          prefix += dialout_prefix unless(dialout_prefix.empty?)
+          prefix += dialout_prefix.delete(' ') unless(dialout_prefix.empty?)
         end
         
         # strip the total prefix from the beginning of the number
         phone_number = phone_number[prefix.length..-1]
         number       = phone_number
-        
+
         prefered_type = 0 # for sorting the priority
         
         # if we're dialing out or using the national prefix
@@ -54,7 +60,7 @@ class PhoneNumber
         rule_sets.each do |rule_set|
           rule_set[:rules] = rule_set[:rules].sort_by do |rule|
             # [ prefered rule type ASC, total_digits ASC ]
-            [ (rule[:type]==prefered_type) ? -1 : rule[:type], rule[:total_digits] ]
+            [ (rule[:type]==prefered_type) ? -1 : rule[:type], rule[:total_digits], rule[:index] ]
           end
         end
         
@@ -105,14 +111,16 @@ class PhoneNumber
         # strip possible whitespace
         phone_number.rstrip!
         phone_number.lstrip!
+        # remove possible non-numeric characters from the (invalid) number
+        number.gsub!(/[^0-9]/,'') if number
         
         # Finally...we can output our parts as a hash
-        { :formatted_number => phone_number, :area_code => area_code, :country_code => country_code, :number => normalize(number) }
+        { :formatted_number => phone_number, :area_code => area_code, :country_code => country_code, :number => number }
       end
       
-      private
+      # private
       def get_rule_sets_for_region(string, region)
-        rule_sets      = []
+        rule_sets = []
         
         if(region && region.rule_sets)
           rule_sets = region.rule_sets.select do |rule_set|
@@ -123,14 +131,15 @@ class PhoneNumber
         rule_sets
       end
       
-      def find_matching_rule(string, rule_sets)
+      def find_matching_rule(number, rule_sets)
+        return nil if !number.match(/\A[0-9]+\Z/)
         match = nil
         
         # go through all our given rules
         for rule_set in rule_sets do
           digits = rule_set[:digits]
-          prefix = string[0,digits].to_i
-          rules  = rule_set[:rules].select { |rule| rule[:total_digits] >= string.length }
+          prefix = number[0,digits].to_i
+          rules  = rule_set[:rules].select { |rule| rule[:total_digits] >= number.length }
 
           rules.each do |rule|
             if(prefix >= rule[:min] && prefix <= rule[:max])

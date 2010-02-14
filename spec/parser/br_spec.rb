@@ -8,6 +8,8 @@ describe PhoneNumber::Parser do
     end
     
     it "should format a [:br] (Brazil) phone number" do
+      PhoneNumber::Parser.parse("03001234567").should == "0300 123-4567"
+      
       PhoneNumber::Parser.parse("123").should == "123"
       PhoneNumber::Parser.parse("1234").should == "123-4"
       PhoneNumber::Parser.parse("12345").should == "123-45"

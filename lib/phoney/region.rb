@@ -50,6 +50,16 @@ class PhoneNumber
       @dialout_prefixes = hash[:dialout_prefixes]
     
       @rule_sets = hash[:rule_sets]
+      
+      if(@rule_sets)
+        for rule_set in @rule_sets do
+          if(rule_set[:rules])
+            rule_set[:rules].each_with_index do |rule,index|
+              rule.merge!(:index => index)
+            end
+          end
+        end
+      end
     end
     
     def to_s
