@@ -6,39 +6,39 @@
   :rule_sets:
   - :digits: 6
     :rules:
-      - { :type: 0, :min: 220215, :max: 220215, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 264615, :max: 264615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 264715, :max: 264715, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 264815, :max: 264815, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 297215, :max: 297215, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 343515, :max: 343515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 343615, :max: 343615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 343715, :max: 343715, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 343815, :max: 343815, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 345415, :max: 345415, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 345515, :max: 345515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 345615, :max: 345615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 345815, :max: 345815, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 353215, :max: 353215, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 353315, :max: 353315, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 353415, :max: 353415, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 358215, :max: 358215, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 358315, :max: 358315, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 358415, :max: 358415, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 358515, :max: 358515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 385415, :max: 385415, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 385515, :max: 385515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 385615, :max: 385615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 385715, :max: 385715, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 385815, :max: 385815, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 387515, :max: 387515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 387615, :max: 387615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 387715, :max: 387715, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 387815, :max: 387815, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 388415, :max: 388415, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 388515, :max: 388515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 388615, :max: 388615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
-      - { :type: 0, :min: 388715, :max: 388715, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 220215, :max: 220215, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 264615, :max: 264615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 264715, :max: 264715, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 264815, :max: 264815, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 297215, :max: 297215, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 343515, :max: 343515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 343615, :max: 343615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 343715, :max: 343715, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 343815, :max: 343815, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 345415, :max: 345415, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 345515, :max: 345515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 345615, :max: 345615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 345815, :max: 345815, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 353215, :max: 353215, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 353315, :max: 353315, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 353415, :max: 353415, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 358215, :max: 358215, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 358315, :max: 358315, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 358415, :max: 358415, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 358515, :max: 358515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 385415, :max: 385415, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 385515, :max: 385515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 385615, :max: 385615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 385715, :max: 385715, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 385815, :max: 385815, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 387515, :max: 387515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 387615, :max: 387615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 387715, :max: 387715, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 387815, :max: 387815, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 388415, :max: 388415, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 388515, :max: 388515, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 388615, :max: 388615, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 388715, :max: 388715, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
   - :digits: 5
     :rules:
       - { :type: 2, :min: 92202, :max: 92202, :total_digits: 11, :areacode_length: 4, :areacode_offset: 1, :format: :"c X XXXX XX XXXX" }
@@ -52,26 +52,26 @@
       - { :type: 2, :min: 93854, :max: 93858, :total_digits: 11, :areacode_length: 4, :areacode_offset: 1, :format: :"c X XXXX XX XXXX" }
       - { :type: 2, :min: 93875, :max: 93878, :total_digits: 11, :areacode_length: 4, :areacode_offset: 1, :format: :"c X XXXX XX XXXX" }
       - { :type: 2, :min: 93884, :max: 93887, :total_digits: 11, :areacode_length: 4, :areacode_offset: 1, :format: :"c X XXXX XX XXXX" }
-      - { :type: 0, :min: 22015, :max: 22015, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 22115, :max: 22115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 22315, :max: 22315, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 23715, :max: 23715, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 26115, :max: 26115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 26415, :max: 26415, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 29115, :max: 29115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 29715, :max: 29715, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 29915, :max: 29915, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 34115, :max: 34115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 34215, :max: 34215, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 34315, :max: 34315, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 34515, :max: 34515, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 35115, :max: 35115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 35315, :max: 35315, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 35815, :max: 35815, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 38115, :max: 38115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 38515, :max: 38515, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 38715, :max: 38715, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
-      - { :type: 0, :min: 38815, :max: 38815, :total_digits: 12, :areacode_length: 3, :areacode_offset: 130, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 22015, :max: 22015, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 22115, :max: 22115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 22315, :max: 22315, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 23715, :max: 23715, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 26115, :max: 26115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 26415, :max: 26415, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 29115, :max: 29115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 29715, :max: 29715, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 29915, :max: 29915, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 34115, :max: 34115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 34215, :max: 34215, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 34315, :max: 34315, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 34515, :max: 34515, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 35115, :max: 35115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 35315, :max: 35315, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 35815, :max: 35815, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 38115, :max: 38115, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 38515, :max: 38515, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 38715, :max: 38715, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
+      - { :type: 0, :min: 38815, :max: 38815, :total_digits: 12, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XX XXX XXXX" }
   - :digits: 4
     :rules:
       - { :type: 0, :min: 2202, :max: 2202, :total_digits: 10, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XXXX" }
@@ -103,7 +103,7 @@
       - { :type: 2, :min: 9385, :max: 9385, :total_digits: 11, :areacode_length: 3, :areacode_offset: 1, :format: :"c X XXX XXX XXXX" }
       - { :type: 2, :min: 9387, :max: 9387, :total_digits: 11, :areacode_length: 3, :areacode_offset: 1, :format: :"c X XXX XXX XXXX" }
       - { :type: 2, :min: 9388, :max: 9388, :total_digits: 11, :areacode_length: 3, :areacode_offset: 1, :format: :"c X XXX XXX XXXX" }
-      - { :type: 0, :min: 1115, :max: 1115, :total_digits: 12, :areacode_length: 2, :areacode_offset: 130, :format: :"XX XX XXXX XXXX" }
+      - { :type: 0, :min: 1115, :max: 1115, :total_digits: 12, :areacode_length: 2, :areacode_offset: 0, :format: :"XX XX XXXX XXXX" }
   - :digits: 3
     :rules:
       - { :type: 0, :min: 220, :max: 220, :total_digits: 10, :areacode_length: 3, :areacode_offset: 0, :format: :"XXX XXX XXXX" }
@@ -138,7 +138,7 @@
       - { :type: 0, :min: 0, :max: 9, :total_digits: 7, :areacode_length: 0, :areacode_offset: 0, :format: :"XXX XXXX" }
       - { :type: 0, :min: 0, :max: 9, :total_digits: 8, :areacode_length: 0, :areacode_offset: 0, :format: :"XXXX XXXX" }
       - { :type: 0, :min: 0, :max: 9, :total_digits: 10, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XXXX" }
-      - { :type: 0, :min: 0, :max: 9, :total_digits: 12, :areacode_length: 4, :areacode_offset: 130, :format: :"XXXX XX XX XXXX" }
+      - { :type: 0, :min: 0, :max: 9, :total_digits: 12, :areacode_length: 4, :areacode_offset: 0, :format: :"XXXX XX XX XXXX" }
 
 :at:
   :country_code: :43
