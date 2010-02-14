@@ -78,7 +78,6 @@ When given a symbol you can let the parser guess the best format and pass in one
 == TODOs
 
 - More test specs for different countries
-- Correctly handle numbers that have some digits BEFORE the area_code!
 
 == Licence
 
