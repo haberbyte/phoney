@@ -57,6 +57,17 @@ describe PhoneNumber::Parser do
         end
       end
     end
+    
+    describe "given an invalid phone number" do
+      it "should use a reasonable default format" do
+        # the number is too long for [:de]
+        PhoneNumber::Parser.parse("040123456789123456789").should == "040123456789123456789"
+        
+        PhoneNumber::Parser.parse("+++494070123").should == "+++494070123"
+        PhoneNumber::Parser.parse("++494070123").should == "++494070123"
+        PhoneNumber::Parser.parse("+01494070123").should == "+01494070123"
+      end
+    end
   end
   
 end

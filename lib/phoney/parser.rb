@@ -15,7 +15,7 @@ class PhoneNumber
 
         # we don't really need to do anything unless we get more input
         unless phone_number.length > 1
-          return { :formatted_number => phone_number, :number => phone_number }
+          return { :formatted_number => phone_number, :number => normalize(phone_number) }
         end
 
         region          = Region.find(region_code) || PhoneNumber.default_region
@@ -30,7 +30,7 @@ class PhoneNumber
         
         # build our total prefix
         if dialout_region
-          prefix       = dialout_prefix + dialout_region.country_code.to_s
+          prefix       = dialout_prefix.delete(' ') + dialout_region.country_code.to_s
           country_code = dialout_region.country_code.to_s
           dialout_country = country_code
         else
@@ -107,7 +107,7 @@ class PhoneNumber
         phone_number.lstrip!
         
         # Finally...we can output our parts as a hash
-        { :formatted_number => phone_number, :area_code => area_code, :country_code => country_code, :number => number }
+        { :formatted_number => phone_number, :area_code => area_code, :country_code => country_code, :number => normalize(number) }
       end
       
       private
@@ -158,12 +158,22 @@ class PhoneNumber
         # check if we're dialing outside our region
         if string[0].chr == '+'
           dialout_prefix = '+'
-        else
-          for prefix in prefixes do
-            if(string =~ Regexp.new("^#{prefix}"))
-              dialout_prefix = prefix
-              break
-            end
+        end
+
+        for prefix in prefixes do
+          regexp = Regexp.escape(prefix)
+          match_str = string
+          
+          # we have matching wild cards
+          if(prefix[/X/] && string =~ Regexp.new("^#{Regexp.escape(prefix.delete('X '))}"))
+            regexp.gsub!(/X/, "[0-9]{0,1}")
+            match_str = format(string[prefix.scan(/[0-9]/).size, prefix.count('X')], prefix)
+            prefix    = match_str
+          end
+          
+          if(match_str =~ Regexp.new("^#{regexp}"))
+            dialout_prefix = prefix
+            break
           end
         end
         
@@ -176,7 +186,7 @@ class PhoneNumber
         national_prefix = ''
 
         # in case we're not dialing out and the number starts with the national_prefix
-        if(!dialing_out?(string, region) && string =~ Regexp.new("^#{prefix}"))
+        if(!dialing_out?(string, region) && string =~ Regexp.new("^#{Regexp.escape(prefix)}"))
           national_prefix = prefix
         end
 
@@ -190,10 +200,10 @@ class PhoneNumber
         
         unless dialout_prefix.empty?
           # region codes are 1 to 3 digits
-          range_end = [string.length-dialout_prefix.length, 3].min
+          range_end = [string.length-dialout_prefix.delete(' ').length, 3].min
 
           (1..range_end).each do |i|
-            dialout_region = Region.find(string[dialout_prefix.length, i])
+            dialout_region = Region.find(string[dialout_prefix.delete(' ').length, i])
             break if dialout_region
           end
         end

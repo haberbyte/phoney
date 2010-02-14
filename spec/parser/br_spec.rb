@@ -52,6 +52,8 @@ describe PhoneNumber::Parser do
           PhoneNumber::Parser.parse("+++494070123").should == "+++494070123"
           PhoneNumber::Parser.parse("++494070123").should == "++494070123"
           PhoneNumber::Parser.parse("+01494070123").should == "+01494070123"
+          PhoneNumber::Parser.parse("+00000000").should == "+00 000000"
+          PhoneNumber::Parser.parse("0000000000").should == "00 00 000000"
         end
       end
     end
