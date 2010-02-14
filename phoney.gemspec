@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
      "lib/phoney/utils.rb",
      "lib/phoney/version.rb",
      "phoney.gemspec",
+     "spec/parser/br_spec.rb",
      "spec/parser/de_spec.rb",
      "spec/parser/us_spec.rb",
      "spec/phone_number_spec.rb",
@@ -40,7 +41,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Ruby library that formats phone numbers.}
   s.test_files = [
-    "spec/parser/de_spec.rb",
+    "spec/parser/br_spec.rb",
+     "spec/parser/de_spec.rb",
      "spec/parser/us_spec.rb",
      "spec/phone_number_spec.rb",
      "spec/spec_helper.rb"
