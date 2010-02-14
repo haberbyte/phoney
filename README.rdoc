@@ -84,7 +84,6 @@ When given a symbol you can let the parser guess the best format and pass in one
 == TODOs
 
 - More test specs for different countries
-- Regions with dialout prefixes that use wild-cards are not yet implemented
 
 == Licence
 
