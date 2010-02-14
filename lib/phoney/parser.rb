@@ -118,7 +118,9 @@ class PhoneNumber
         { :formatted_number => phone_number, :area_code => area_code, :country_code => country_code, :number => number }
       end
       
-      # private
+      private
+      # Returns the rule sets that we need to check for a given number and region.
+      # The rule_sets are filtered by the length of the number!
       def get_rule_sets_for_region(string, region)
         rule_sets = []
         
@@ -131,6 +133,8 @@ class PhoneNumber
         rule_sets
       end
       
+      # Given any number, find the rule in rule_sets that applies.
+      # Returns nil if no matching rule was found!
       def find_matching_rule(number, rule_sets)
         return nil if !number.match(/\A[0-9]+\Z/)
         match = nil
@@ -154,11 +158,14 @@ class PhoneNumber
         match
       end
       
+      # According to the region, is this number input trying to dial out?
       def dialing_out?(string, region=nil)
         region ||= PhoneNumber.default_region
         !get_dialout_prefix(string, region).empty?
       end
-            
+      
+      # Get the dialout prefix from the given string.
+      # Returns an empty string if no dialout prefix was found.
       def get_dialout_prefix(string, region=nil)
         region ||= PhoneNumber.default_region
         prefixes = region.dialout_prefixes
@@ -189,6 +196,8 @@ class PhoneNumber
         dialout_prefix
       end
       
+      # Get the national prefix from the given string.
+      # Returns an empty string if no national prefix was found.
       def get_national_prefix(string, region=nil)
         region ||= PhoneNumber.default_region
         prefix = region.national_prefix
@@ -202,6 +211,9 @@ class PhoneNumber
         national_prefix
       end
       
+      # Get the dialout region by looking at the string.
+      # Returns a Region object if we're dialing outside a region that is supported.
+      # Otherwise returns nil.
       def get_dialout_region(string, region)
         region ||= PhoneNumber.default_region
         dialout_prefix = get_dialout_prefix(string, region)

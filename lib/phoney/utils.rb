@@ -44,7 +44,7 @@ class PhoneNumber
     # Strips all non-numberpad characters from a string
     # => For example: "+45 (123) 023 1.1.1" -> "+45123023111"
     def normalize(string_with_number)
-      string_with_number.scan(/[0-9+*#]/).to_s unless string_with_number.nil?
+      string_with_number.gsub(/[^0-9+*#]/,'') unless string_with_number.nil?
     end
     
   end

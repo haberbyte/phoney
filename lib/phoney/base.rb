@@ -1,5 +1,5 @@
 class PhoneNumber
-  attr_accessor :country_code, :area_code, :number
+  attr_accessor :country_code, :prefix_code, :area_code, :number
   
   class << self
     def default_region
@@ -74,7 +74,7 @@ class PhoneNumber
     if fmt.is_a?(Symbol)
       case fmt
       when :default
-        Parser::parse("+#{country_code} #{area_code} #{number}", country_code)
+        Parser::parse("+#{country_code} #{prefix_code}#{area_code} #{number}", country_code)
       when :national
         Parser::parse("#{area_code} #{number}", country_code)
       when :local
