@@ -20,6 +20,7 @@ class PhoneNumber
 
         region          = Region.find(region_code) || PhoneNumber.default_region
         country_code    = region.country_code.to_s
+        prefix_code     = nil
         area_code       = nil
 
         dialout_prefix  = get_dialout_prefix(phone_number, region)
@@ -69,6 +70,9 @@ class PhoneNumber
         
         # now that know how to format the number, do the formatting work...
         if(matching_rule)
+          if(matching_rule[:areacode_offset] > 0)
+            prefix_code = phone_number[0, matching_rule[:areacode_offset]]
+          end
           area_code     = phone_number[matching_rule[:areacode_offset], matching_rule[:areacode_length]]
           number        = phone_number[matching_rule[:areacode_offset]+matching_rule[:areacode_length]..-1]
           phone_number  = format(phone_number, matching_rule[:format].to_s)
@@ -115,7 +119,11 @@ class PhoneNumber
         number.gsub!(/[^0-9]/,'') if number
         
         # Finally...we can output our parts as a hash
-        { :formatted_number => phone_number, :area_code => area_code, :country_code => country_code, :number => number }
+        { :formatted_number => phone_number,
+          :prefix_code => prefix_code,
+          :area_code => area_code,
+          :country_code => country_code,
+          :number => number }
       end
       
       private
