@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'spec/rake/spectask'
 
-require 'lib/phoney'
+require File.join(File.dirname(__FILE__), 'lib', 'phoney')
 
 begin
   require 'jeweler'
