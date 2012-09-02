@@ -4605,6 +4605,15 @@
   :national_prefix: "0"
   :dialout_prefixes: [ "00" ]
   :rule_sets:
+  - :digits: 6
+    :rules:
+      - :type: 0
+        :min: 169772
+        :max: 169773
+        :total_digits: 9
+        :areacode_length: 5
+        :areacode_offset: 0
+        :format: :"XXXXX XXXX"
   - :digits: 5
     :rules:
       - :type: 0
@@ -4624,10 +4633,10 @@
       - :type: 0
         :min: 13873
         :max: 13873
-        :total_digits: 9
+        :total_digits: 10
         :areacode_length: 5
         :areacode_offset: 0
-        :format: :"XXXXX XXXXXXX XXXX XXXX"
+        :format: :"XXXXX XXXXX"
       - :type: 0
         :min: 15242
         :max: 15242
@@ -4670,22 +4679,64 @@
         :areacode_length: 5
         :areacode_offset: 0
         :format: :"XXXXX XXXXX"
+      - :type: 0
+        :min: 19467
+        :max: 19467
+        :total_digits: 10
+        :areacode_length: 5
+        :areacode_offset: 0
+        :format: :"XXXXX XXXXX"
   - :digits: 3
     :rules:
       - :type: 0
         :min: 500
         :max: 500
+        :total_digits: 9
+        :areacode_length: 3
+        :areacode_offset: 0
+        :format: :"XXX XXXXXX"
+      - :type: 0
+        :min: 800
+        :max: 800
+        :total_digits: 9
+        :areacode_length: 3
+        :areacode_offset: 0
+        :format: :"XXX XXXXXX"
+      - :type: 0
+        :min: 300
+        :max: 309
         :total_digits: 10
         :areacode_length: 3
         :areacode_offset: 0
         :format: :"XXX XXX XXXX"
       - :type: 0
-        :min: 300
-        :max: 300
+        :min: 330
+        :max: 339
         :total_digits: 10
         :areacode_length: 3
         :areacode_offset: 0
         :format: :"XXX XXX XXXX"
+      - :type: 0
+        :min: 342
+        :max: 345
+        :total_digits: 10
+        :areacode_length: 3
+        :areacode_offset: 0
+        :format: :"XXX XXX XXXX"
+      - :type: 0
+        :min: 370
+        :max: 373
+        :total_digits: 10
+        :areacode_length: 3
+        :areacode_offset: 0
+        :format: :"XXX XXX XXXX"
+      - :type: 0
+        :min: 116
+        :max: 116
+        :total_digits: 6
+        :areacode_length: 3
+        :areacode_offset: 0
+        :format: :"XXX XXX"
       - :type: 0
         :min: 118
         :max: 118
@@ -4694,8 +4745,8 @@
         :areacode_offset: 0
         :format: :"XXX XXX"
       - :type: 0
-        :min: 111
-        :max: 119
+        :min: 113
+        :max: 118
         :total_digits: 10
         :areacode_length: 3
         :areacode_offset: 0
@@ -4736,35 +4787,51 @@
         :areacode_offset: 0
         :format: :"XXX XXX XXXX"
       - :type: 0
-        :min: 171
-        :max: 171
-        :total_digits: 10
-        :areacode_length: 3
-        :areacode_offset: 0
-        :format: :"XXX XXX XXXX"
-      - :type: 0
-        :min: 181
-        :max: 181
-        :total_digits: 10
-        :areacode_length: 3
-        :areacode_offset: 0
-        :format: :"XXX XXX XXXX"
-      - :type: 0
         :min: 191
         :max: 191
         :total_digits: 10
         :areacode_length: 3
         :areacode_offset: 0
         :format: :"XXX XXX XXXX"
+  - :digits: 2
+    :rules:
+      - :type: 0
+        :min: 55
+        :max: 56
+        :total_digits: 10
+        :areacode_length: 2
+        :areacode_offset: 0
+        :format: :"XX XXXX XXXX"
+      - :type: 0
+        :min: 70
+        :max: 70
+        :total_digits: 10
+        :areacode_length: 2
+        :areacode_offset: 0
+        :format: :"XX XXXX XXXX"
+      - :type: 0
+        :min: 71
+        :max: 79
+        :total_digits: 10
+        :areacode_length: 4
+        :areacode_offset: 0
+        :format: :"XXXX XXXXXX"
   - :digits: 1
     :rules:
       - :type: 0
-        :min: 8
-        :max: 9
-        :total_digits: 9
+        :min: 2
+        :max: 2
+        :total_digits: 10
+        :areacode_length: 2
+        :areacode_offset: 0
+        :format: :"XX XXXX XXXX"
+      - :type: 0
+        :min: 3
+        :max: 3
+        :total_digits: 10
         :areacode_length: 3
         :areacode_offset: 0
-        :format: :"XXX XXXXXX"
+        :format: :"XXX XXX XXXX"
       - :type: 0
         :min: 8
         :max: 9
@@ -4773,14 +4840,7 @@
         :areacode_offset: 0
         :format: :"XXX XXX XXXX"
       - :type: 0
-        :min: 7
-        :max: 7
-        :total_digits: 10
-        :areacode_length: 4
-        :areacode_offset: 0
-        :format: :"XXXX XXXXXX"
-      - :type: 0
-        :min: 2
+        :min: 3
         :max: 6
         :total_digits: 10
         :areacode_length: 2
@@ -4793,6 +4853,13 @@
         :areacode_length: 4
         :areacode_offset: 0
         :format: :"XXXX XXXXXX"
+      - :type: 0
+        :min: 1
+        :max: 1
+        :total_digits: 9
+        :areacode_length: 4
+        :areacode_offset: 0
+        :format: :"XXXX XXXXX"
 
 :gr:
   :country_code: :30
