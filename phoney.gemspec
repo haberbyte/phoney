@@ -42,7 +42,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.summary = %q{Ruby library that formats phone numbers.}
 
-  s.add_runtime_dependency(%q<phoney>, [">= 0"])
   s.add_development_dependency(%q<rake>, [">= 0"])
   s.add_development_dependency(%q<rspec>, ["= 2.11.0"])
 end
