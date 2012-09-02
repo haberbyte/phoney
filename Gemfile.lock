@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     phoney (0.1.2)
-      phoney
 
 GEM
   remote: http://rubygems.org/
