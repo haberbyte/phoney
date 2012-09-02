@@ -14308,50 +14308,50 @@
         :min: 812
         :max: 812
         :total_digits: 10
-        :areacode_length: 0
-        :areacode_offset: 131
+        :areacode_length: 3
+        :areacode_offset: 0
         :format: :"n (XXX) XXX-XX-XX"
       - :type: 1
         :min: 818
         :max: 818
         :total_digits: 10
-        :areacode_length: 0
-        :areacode_offset: 131
+        :areacode_length: 3
+        :areacode_offset: 0
         :format: :"n (XXX) XXX-XX-XX"
       - :type: 1
         :min: 831
         :max: 831
         :total_digits: 10
-        :areacode_length: 0
-        :areacode_offset: 131
+        :areacode_length: 3
+        :areacode_offset: 0
         :format: :"n (XXX) XXX-XX-XX"
       - :type: 1
         :min: 843
         :max: 843
         :total_digits: 10
-        :areacode_length: 0
-        :areacode_offset: 131
+        :areacode_length: 3
+        :areacode_offset: 0
         :format: :"n (XXX) XXX-XX-XX"
       - :type: 1
         :min: 846
         :max: 846
         :total_digits: 10
-        :areacode_length: 0
-        :areacode_offset: 131
+        :areacode_length: 3
+        :areacode_offset: 0
         :format: :"n (XXX) XXX-XX-XX"
       - :type: 1
         :min: 861
         :max: 861
         :total_digits: 10
-        :areacode_length: 0
-        :areacode_offset: 131
+        :areacode_length: 3
+        :areacode_offset: 0
         :format: :"n (XXX) XXX-XX-XX"
       - :type: 1
         :min: 863
         :max: 863
         :total_digits: 10
-        :areacode_length: 0
-        :areacode_offset: 131
+        :areacode_length: 3
+        :areacode_offset: 0
         :format: :"n (XXX) XXX-XX-XX"
   - :digits: 1
     :rules:
@@ -14387,15 +14387,15 @@
         :min: 0
         :max: 9
         :total_digits: 10
-        :areacode_length: 0
-        :areacode_offset: 131
+        :areacode_length: 3
+        :areacode_offset: 0
         :format: :"(XXX) XXX-XX-XX"
       - :type: 1
         :min: 0
         :max: 9
         :total_digits: 10
-        :areacode_length: 0
-        :areacode_offset: 131
+        :areacode_length: 3
+        :areacode_offset: 0
         :format: :"n (XXX) XXX-XX-XX"
 
 :se:
