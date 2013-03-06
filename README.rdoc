@@ -77,8 +77,4 @@ When given a symbol you can let the parser guess the best format and pass in one
 
 == TODOs
 
-- More test specs for different countries
-
-== Licence
-
-see LICENSE
+- More tests for different countries
