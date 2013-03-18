@@ -20,6 +20,10 @@ class USRegionTest < MiniTest::Unit::TestCase
     assert_equal "+1 (712) 345-6", PhoneNumber::Parser.parse("+17123456")
   end
   
+  def test_international_incomplete_number_with_trunk_prefix
+    assert_equal "+1 (1) (7  )", PhoneNumber::Parser.parse("+1171")
+  end
+  
   def test_fallback_for_invalid_phone_number
     # the number is too long for [:us]
     assert_equal "+1 704123456789", PhoneNumber::Parser.parse("+1704123456789")

@@ -36,7 +36,7 @@ module PhoneNumber
           number = number[trunk_prefix.count(DIGITS)..-1]
           flags << :n
 
-          trunk_prefix = "(#{trunk_prefix})" if intl_prefix
+          trunk_prefix = "(#{trunk_prefix}) " if intl_prefix
         end
         
         if country_code || intl_prefix != '+'
