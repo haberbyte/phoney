@@ -28,6 +28,12 @@ class FormatterTest < MiniTest::Unit::TestCase
     assert_equal "+", international_call_prefix_for("+")
   end
   
+  def test_formatting_international_call_with_non_exiting_country
+    assert_equal "+99", format("+99", "###")
+    assert_equal "+99", PhoneNumber::Parser.parse("+99")
+    assert_equal "+999999999", PhoneNumber::Parser.parse("+999999999")
+  end
+  
   def test_international_calling_prefix_for_empty_number
     assert_equal nil, international_call_prefix_for("")
   end
@@ -41,6 +47,7 @@ class FormatterTest < MiniTest::Unit::TestCase
   
   def test_nonexisting_country_code
     assert_equal nil, extract_country_code("+99")
+    assert_equal nil, extract_country_code("01199")
   end
   
   def test_trunk_prefix_extraction
@@ -49,5 +56,12 @@ class FormatterTest < MiniTest::Unit::TestCase
     assert_equal nil, extract_trunk_prefix("+1705")
     assert_equal nil, extract_trunk_prefix("+1")
     assert_equal nil, extract_trunk_prefix("+4940")
+  end
+  
+  def test_format_international_number_with_trunk_prefix
+    assert_equal "+1 (1) (704) 205-1234", PhoneNumber::Parser.parse("+117042051234")
+    assert_equal "+49 (0) 40 1234567", PhoneNumber::Parser.parse("+490401234567")
+    assert_equal "011 1 (1) (704) 205-1234", PhoneNumber::Parser.parse("011117042051234")
+    assert_equal "011 49 (0) 40 1234567", PhoneNumber::Parser.parse("011490401234567")
   end
 end

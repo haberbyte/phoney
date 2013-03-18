@@ -37,13 +37,17 @@ module PhoneNumber
           flags << :n
         end
         
-        rule = find_matching_rule_for number, region: region, flags: flags
-        rule ||= find_matching_rule_for number, region: region
+        if (intl_prefix != '+' || country_code)
+          rule = find_matching_rule_for number, region: region, flags: flags
+          rule ||= find_matching_rule_for number, region: region
         
-        if rule
-          format number, rule.pattern, intl_prefix: intl_prefix, trunk_prefix: trunk_prefix
+          if rule
+            format number, rule.pattern, intl_prefix: intl_prefix, trunk_prefix: trunk_prefix
+          else
+            format number, '#'*number.length, intl_prefix: intl_prefix, trunk_prefix: trunk_prefix
+          end
         else
-          format number, '#'*number.length, intl_prefix: intl_prefix, trunk_prefix: trunk_prefix
+          input
         end
       end
       

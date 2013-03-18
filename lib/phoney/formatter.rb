@@ -22,6 +22,10 @@ module PhoneNumber
       trunk_prefix = options[:trunk_prefix]||''
       slots        = pattern.count(PLACEHOLDER_CHAR)
       
+      if !intl_prefix.empty? && !trunk_prefix.empty?
+        trunk_prefix = "(#{trunk_prefix}) "
+      end
+      
       # Return original input if it is too long
       return input if (fill.nil? && input.length > slots)
       
