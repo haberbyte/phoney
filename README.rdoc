@@ -24,7 +24,7 @@ Source:: <tt>git clone git://github.com/habermann24/phoney.git</tt>
 
     require 'phoney'
     
-    PhoneNumber.default_region = :de
+    PhoneNumber.region = :de
     
     pn = PhoneNumber.new("04105456789")
     pn.to_s           # "+49 4105 456789"
@@ -35,9 +35,9 @@ Source:: <tt>git clone git://github.com/habermann24/phoney.git</tt>
 == Creating PhoneNumber instances
 
 Phoney gives you a PhoneNumber class that wraps all the logic of phone number parsing and representation.
-The default region phoney uses for formatting is the US-region format. So if you want to parse phone numbers from a different country, you have to set PhoneNumber.default_region or pass the region code every time!
+The default region phoney uses for formatting is the US-region format. So if you want to parse phone numbers from a different country, you have to set PhoneNumber.region or pass the region code every time!
 
-  PhoneNumber.default_region = :us
+  PhoneNumber.region = :us
 
 The most common way to create a PhoneNumber object is by parsing from a string:
   PhoneNumber.new("7041231234")         # uses region :us

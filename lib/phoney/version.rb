@@ -1,3 +1,3 @@
-class PhoneNumber
+module PhoneNumber
   VERSION = "0.2.0"
 end

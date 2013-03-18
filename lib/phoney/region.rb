@@ -1,39 +1,30 @@
-require 'yaml'
+require 'set'
 
-class PhoneNumber
-  
+module PhoneNumber
   class Region
-    @@regions = []
+    REGION_FILE = File.join(File.dirname(__FILE__), '..', 'data', 'regions.bin')
     
     attr_reader :country_code, :country_abbr
-    attr_reader :national_prefix, :dialout_prefixes
+    attr_reader :trunk_prefixes, :dialout_prefixes
     attr_reader :rule_sets
     
     class << self
       def load
-        data_file = File.join(File.dirname(__FILE__), '..', 'data', 'regions.yml')
-    
         @@regions = []
-        YAML.load(File.read(data_file)).each_pair do |key, region_hash|
-          new_region = Region.new(region_hash)
-          @@regions.push(new_region)
+        Marshal.load(File.read(REGION_FILE)).each_pair do |key, region_hash|
+          new_region = Region.new region_hash
+          @@regions.push new_region
         end
         @@regions
       end
   
       def all
-        return @@regions unless @@regions.empty?
-    
-        load
+        @@regions.empty? ? load : @@regions
       end
   
-      def find(param)
-        return nil unless param
-        
-        param = param.to_sym
-    
+      def find(param)    
         all.detect do |region|
-          region.country_code == param || region.country_abbr == param
+          region.country_code.to_s == param.to_s || region.country_abbr.to_s == param.to_s
         end
       end
   
@@ -42,29 +33,22 @@ class PhoneNumber
       end
     end
     
-    def initialize(hash)
-      @country_abbr = hash[:country_abbr]
-      @country_code = hash[:country_code]
+    def initialize(options={})
+      @country_abbr = options[:country_abbr]
+      @country_code = options[:country_code]
     
-      @national_prefix  = hash[:national_prefix]
-      @dialout_prefixes = hash[:dialout_prefixes]
+      @trunk_prefixes   = options[:trunk_prefixes]
+      @dialout_prefixes = options[:dialout_prefixes]
     
-      @rule_sets = hash[:rule_sets]
+      @rule_sets = SortedSet.new
       
-      if(@rule_sets)
-        for rule_set in @rule_sets do
-          if(rule_set[:rules])
-            rule_set[:rules].each_with_index do |rule,index|
-              rule.merge!(:index => index)
-            end
-          end
-        end
+      (options[:rule_sets]||[]).each do |rule_group|
+        @rule_sets.add RuleGroup.new(rule_group[:significant_digits], rule_group[:rules])
       end
     end
     
     def to_s
-      "#{@country_abbr.to_s} [+#{@country_code.to_s}]"
+      country_abbr
     end
   end
-  
 end
