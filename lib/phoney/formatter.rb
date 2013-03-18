@@ -22,10 +22,6 @@ module PhoneNumber
       trunk_prefix = options[:trunk_prefix]||''
       slots        = pattern.count(PLACEHOLDER_CHAR)
       
-      if !intl_prefix.empty? && !trunk_prefix.empty?
-        trunk_prefix = "(#{trunk_prefix}) "
-      end
-      
       # Return original input if it is too long
       return input if (fill.nil? && input.length > slots)
       
@@ -62,12 +58,16 @@ module PhoneNumber
             result << chr
           end
         else
+          # Don't show space after n if no trunk prefix or after c if no intl prefix
+          #next if (chr == ' ' && result[-1,1] == 'n' && trunk_prefix.empty?)
+          #next if (chr == ' ' && result[-1,1] == 'c' && intl_prefix.empty?)
+          
           result << chr if (slot < source.length)
         end
       end
       
-      result.prepend trunk_prefix unless had_n
-      result.prepend "#{intl_prefix} " unless (had_c || intl_prefix.empty?)
+      result.prepend trunk_prefix if (!had_n && !trunk_prefix.empty?)
+      result.prepend "#{intl_prefix} " if (!had_c && !intl_prefix.empty?)
       
       result.strip
     end

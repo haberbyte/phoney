@@ -16,13 +16,13 @@ module PhoneNumber
         if intl_prefix
           # Strip international prefix from number
           number = number[intl_prefix.count(NUMPAD_CHARS)..-1]
+          region = PhoneNumber::Region[country_code]
+          flags << :c
         end
         
         if country_code
           # Strip country code from number
           number = number[country_code.count(DIGITS)..-1]
-          region = PhoneNumber::Region[country_code]
-          flags << :c
           
           if intl_prefix == '+'
             intl_prefix += country_code
@@ -35,17 +35,18 @@ module PhoneNumber
           # Strip trunk prefix from number
           number = number[trunk_prefix.count(DIGITS)..-1]
           flags << :n
+
+          trunk_prefix = "(#{trunk_prefix})" if intl_prefix
         end
         
-        if (intl_prefix != '+' || country_code)
+        if country_code || intl_prefix != '+'
           rule = find_matching_rule_for number, region: region, flags: flags
           rule ||= find_matching_rule_for number, region: region
-        
-          if rule
-            format number, rule.pattern, intl_prefix: intl_prefix, trunk_prefix: trunk_prefix
-          else
-            format number, '#'*number.length, intl_prefix: intl_prefix, trunk_prefix: trunk_prefix
-          end
+          
+          pattern = '#'*number.length
+          pattern = rule.pattern if rule
+          
+          format number, pattern, intl_prefix: intl_prefix, trunk_prefix: trunk_prefix
         else
           input
         end
@@ -53,14 +54,14 @@ module PhoneNumber
       
       private
         def find_matching_rule_for(number, options={})
-          region = options[:region] || PhoneNumber.region
+          options[:region] ||= Region.new
           options[:flags] ||= []
           
           # Consider all rule sets that aren't too specific for the number
-          region.rule_sets.select { |r| number.length >= r.significant_digits }.each do |rule_set|
+          options[:region].rule_sets.select { |r| number.length >= r.significant_digits }.each do |rule_set|
             # Filter rules that don't have all the flags
             rules = rule_set.rules.reject { |r| ([options[:flags]].flatten - r.flags).size != 0 }
-            
+          
             # Find and return the first rule that matches
             matching_rule = rules.find { |rule| rule.matches? number }
             return matching_rule unless matching_rule.nil?

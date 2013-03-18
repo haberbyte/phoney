@@ -46,6 +46,7 @@ class FormatterTest < MiniTest::Unit::TestCase
     assert_equal "49", extract_country_code("+49")
     assert_equal "49", extract_country_code("01149")
     assert_equal "49", extract_country_code("01149123456")
+    assert_equal "1", extract_country_code("0111234567")
     assert_equal nil, extract_country_code("03001234567", region: PhoneNumber::Region["br"])
   end
   
@@ -61,7 +62,7 @@ class FormatterTest < MiniTest::Unit::TestCase
     assert_equal nil, extract_trunk_prefix("+1")
     assert_equal nil, extract_trunk_prefix("+4940")
     
-    assert_equal "1", extract_trunk_prefix("01117041234567")
+    assert_equal "1", extract_trunk_prefix("011117041234567")
     assert_equal nil, extract_trunk_prefix("011705")
     assert_equal "0", extract_trunk_prefix("01149040")
   end
