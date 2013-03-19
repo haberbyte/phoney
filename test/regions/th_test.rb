@@ -29,4 +29,10 @@ class THRegionTest < MiniTest::Unit::TestCase
     assert_equal "+668-0123-4567", PhoneNumber::Parser.parse("+668-0123-4567")
     assert_equal "+66 8012345678", PhoneNumber::Parser.parse("+66 8012345678")
   end
+  
+  def test_pattern_with_trunk_prefix_and_country
+    assert_equal "+66 (0)8-1234-5678", PhoneNumber::Parser.parse("+660812345678")
+    assert_equal "+66 (0)9-1234-5678", PhoneNumber::Parser.parse("+660912345678")
+    assert_equal "+66 (0) 2-345-6789", PhoneNumber::Parser.parse("+66023456789")
+  end
 end

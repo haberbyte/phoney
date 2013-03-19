@@ -24,6 +24,18 @@ class USRegionTest < MiniTest::Unit::TestCase
     assert_equal "+1 (1) (7  )", PhoneNumber::Parser.parse("+1171")
   end
   
+  def test_asterisk_pattern
+    assert_equal "*22812", PhoneNumber::Parser.parse("*22812")
+    assert_equal "*22812", PhoneNumber::Parser.parse("*22812")
+    
+    assert_equal "*12 345", PhoneNumber::Parser.parse("*12345")
+    assert_equal "*12 345-6789", PhoneNumber::Parser.parse("*123456789")
+    assert_equal "*123 456-7891", PhoneNumber::Parser.parse("*1234567891")
+    assert_equal "*12 (345) 678-912", PhoneNumber::Parser.parse("*12345678912")
+    assert_equal "*123 (456) 789-1234", PhoneNumber::Parser.parse("*1234567891234")
+    assert_equal "*12 345678912345", PhoneNumber::Parser.parse("*12345678912345")
+  end
+  
   def test_fallback_for_invalid_phone_number
     # the number is too long for [:us]
     assert_equal "+1 704123456789", PhoneNumber::Parser.parse("+1704123456789")
