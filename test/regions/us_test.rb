@@ -21,7 +21,7 @@ class USRegionTest < MiniTest::Unit::TestCase
   end
   
   def test_international_incomplete_number_with_trunk_prefix
-    assert_equal "+1 (1) (7  )", PhoneNumber::Parser.parse("+1171")
+    assert_equal "+1 (1) (7  )", PhoneNumber::Parser.parse("+117")
   end
   
   def test_asterisk_pattern

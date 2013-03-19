@@ -35,8 +35,11 @@ module PhoneNumber
           # Strip trunk prefix from number
           number = number[trunk_prefix.count(DIGITS)..-1]
           flags << :n
-
-          trunk_prefix = "(#{trunk_prefix}) " if intl_prefix
+          
+          if intl_prefix
+            intl_prefix += " (#{trunk_prefix})"
+            trunk_prefix = nil
+          end
         end
         
         if country_code || intl_prefix != '+'
@@ -55,12 +58,20 @@ module PhoneNumber
       private
         def find_matching_rule_for(number, options={})
           options[:region] ||= Region.new
-          options[:flags] ||= []
           
           # Consider all rule sets that aren't too specific for the number
           options[:region].rule_sets.select { |r| number.length >= r.significant_digits }.each do |rule_set|
-            # Filter rules that don't have all the flags
-            rules = rule_set.rules.reject { |r| ([options[:flags]].flatten - r.flags).size != 0 }
+            rules = rule_set.rules
+            
+            # Only consider rules with :c flag if this flag is set
+            if options[:flags] && options[:flags].include?(:c)
+              rules = rules.reject { |r| !r.flags.include? :c }
+            else
+              # Only consider rules with :n flag if this flag is set
+              if options[:flags] && options[:flags].include?(:n)
+                rules = rules.reject { |r| !r.flags.include? :n }
+              end
+            end
           
             # Find and return the first rule that matches
             matching_rule = rules.find { |rule| rule.matches? number }

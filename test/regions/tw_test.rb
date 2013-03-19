@@ -10,5 +10,19 @@ class TWRegionTest < MiniTest::Unit::TestCase
     assert_equal "+886 023", PhoneNumber::Parser.parse("+886023")
     assert_equal "+886 0123", PhoneNumber::Parser.parse("+8860123")
     assert_equal "+886 (0) 1234", PhoneNumber::Parser.parse("+88601234")
+    
+    assert_equal "+886 (0) 201-23456", PhoneNumber::Parser.parse("+886020123456")
+  end
+  
+  def test_different_dialout_prefixes
+    assert_equal "000 1 (704)", PhoneNumber::Parser.parse("0001704")
+    assert_equal "001 1 (704)", PhoneNumber::Parser.parse("0011704")
+    assert_equal "002 1 (704)", PhoneNumber::Parser.parse("0021704")
+    assert_equal "003 1 (704)", PhoneNumber::Parser.parse("0031704")
+    
+    assert_equal "010 1 (704)", PhoneNumber::Parser.parse("0101704")
+    assert_equal "011 1 (704)", PhoneNumber::Parser.parse("0111704")
+    assert_equal "012 1 (704)", PhoneNumber::Parser.parse("0121704")
+    assert_equal "013 1 (704)", PhoneNumber::Parser.parse("0131704")
   end
 end

@@ -4,15 +4,15 @@ module PhoneNumber
     
     def initialize(significant_digits, rules=[])
       @significant_digits = significant_digits
-      @rules = SortedSet.new
+      @rules = []
       
       rules.each do |rule|
-        @rules.add Rule.new(rule)
+        add_rule Rule.new(rule)
       end
     end
     
     def add_rule(rule)
-      @rules.add rule
+      @rules.push rule
     end
     
     def delete_rule(rule)
