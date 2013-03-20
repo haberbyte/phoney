@@ -32,7 +32,7 @@ module PhoneNumber
       slot     = 0
       has_open = had_c = had_n = false
       
-      pattern.each_char do |chr|
+      pattern.split('').each_with_index do |chr, index|
         case chr
         when 'c'
           had_c = true
@@ -59,13 +59,16 @@ module PhoneNumber
           end
         else
           # Don't show space after n if no trunk prefix or after c if no intl prefix
-          #next if (chr == ' ' && result[-1,1] == 'n' && trunk_prefix.empty?)
-          #next if (chr == ' ' && result[-1,1] == 'c' && intl_prefix.empty?)
+          next if (chr == ' ' && pattern[index-1] == 'n' && trunk_prefix.empty?)
+          next if (chr == ' ' && pattern[index-1] == 'c' && intl_prefix.empty?)
           
           result << chr if (slot < source.length)
         end
       end
-      
+
+      # Not all format strings have a 'c' or 'n' in them.
+      # If we have an international prefix or a trunk prefix but the format string
+      # doesn't explictly say where to put it then simply add it to the beginning.
       result.prepend trunk_prefix if (!had_n && !trunk_prefix.empty?)
       result.prepend "#{intl_prefix} " if (!had_c && !intl_prefix.empty?)
       

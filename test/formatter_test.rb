@@ -73,4 +73,10 @@ class FormatterTest < MiniTest::Unit::TestCase
     assert_equal "011 1 (1) (704) 205-1234", PhoneNumber::Parser.parse("011117042051234")
     assert_equal "011 49 (0) 40 1234567", PhoneNumber::Parser.parse("011490401234567")
   end
+  
+  def test_format_string_without_prefixes
+    assert_equal "123", format("123", "n ###")
+    assert_equal "123", format("123", "c ###")
+    assert_equal "123", format("123", "c n ###")
+  end
 end
