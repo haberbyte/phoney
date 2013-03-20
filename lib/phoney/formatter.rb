@@ -92,7 +92,7 @@ module PhoneNumber
           
         return format(input, prefix.gsub(/[\\+0-9]/, '#'), fill: '') if input =~ regexp
         
-        if (input.start_with?('+') && input[1..-1] =~ regexp)
+        if (input.start_with?('+') && (stripped_prefix.start_with?(input[1..-1]) || input[1..-1] =~ regexp))
           return format(input, '#'+prefix.gsub(/[\\+0-9]/, '#'), fill: '')
         end
       end

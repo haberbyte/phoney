@@ -4,6 +4,11 @@ class DERegionTest < MiniTest::Unit::TestCase
   def setup
     PhoneNumber.region = :de
   end
+  
+  def test_plus_and_trunk_prefix_start
+    assert_equal "+0", PhoneNumber::Parser.parse("+0")
+    assert_equal "+00", PhoneNumber::Parser.parse("+00")
+  end
 
   def test_output_the_correct_format
     # with national prefix '0'

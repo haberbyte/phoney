@@ -83,4 +83,9 @@ class FormatterTest < MiniTest::Unit::TestCase
   def test_format_number_with_double_international_prefix
     assert_equal "+011 49 40", PhoneNumber::Parser.parse("+0114940")
   end
+  
+  def test_international_prefix_with_plus_and_trunk_prefix_start
+    assert_equal "+0", international_call_prefix_for("+0", region: PhoneNumber::Region["de"])
+    assert_equal "+00", international_call_prefix_for("+00", region: PhoneNumber::Region["de"])
+  end
 end
