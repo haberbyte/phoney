@@ -53,19 +53,29 @@ module PhoneformatConverter
       puts "  :trunk_prefixes: #{c.trunk_prefixes}"
       puts "  :dialout_prefixes: #{c.dialout_prefixes}"
       puts "  :rule_sets:"
+      
+      smallest_scheme_offset = nil
   
       (0..(c.rules_sets_count-1)).each do |rule_set_idx|
         digits, rules_count = data[rules_offset, 4].unpack("v/v")
     
         puts "  - :significant_digits: #{digits}"
         puts "    :rules:"
-    
+        
         # iterate over individual rules
         (0..(rules_count-1)).each do |rule_idx|
           # each rule is 16 bytes
-          prefix_min,prefix_max,unkn1,total_digits,areacode_offset,areacode_length,type,unkn2,scheme_offset = data[rules_offset+4+rule_idx*16, 16].unpack("V/V/C/C/C/C/C/C/v")
-          # now extract the rule scheme 
-          scheme = data[scheme_base+scheme_offset, data[(scheme_base+scheme_offset)..-1].index(("\x00"))]
+          prefix_min,prefix_max,unkn1,total_digits,areacode_offset,areacode_length,type,unkn2,scheme_offset = data[rules_offset+4+(rule_idx*16), 16].unpack("V/V/C/C/C/C/C/C/v")
+          
+          scheme_length = data[(scheme_base+scheme_offset)..-1].index("\x00")
+          comment_length = data[(scheme_base+scheme_offset+scheme_length+1)..-1].index("\x00")
+          
+          # now extract the rule scheme and comment
+          scheme  = data[scheme_base+scheme_offset, scheme_length]
+          comment = data[scheme_base+scheme_offset+scheme_length+1, comment_length]
+          
+          smallest_scheme_offset ||= scheme_offset
+          smallest_scheme_offset = [smallest_scheme_offset, scheme_offset].min
       
           flags = []
       
@@ -105,6 +115,8 @@ module PhoneformatConverter
     
         rules_offset += (4 + rules_count*16) # move to next rules-set 
       end
+      
+      pre_scheme = data[scheme_base, smallest_scheme_offset||0]
     end
   end
 end

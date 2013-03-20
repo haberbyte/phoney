@@ -23,7 +23,7 @@ class FormatterTest < MiniTest::Unit::TestCase
   end
   
   def test_international_call_prefix_with_plus_sign
-    assert_equal "+", international_call_prefix_for("+011")
+    assert_equal "+011", international_call_prefix_for("+011")
     assert_equal "+", international_call_prefix_for("+123")
     assert_equal "+", international_call_prefix_for("+")
   end
