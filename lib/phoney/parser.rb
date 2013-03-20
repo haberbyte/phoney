@@ -31,6 +31,10 @@ module PhoneNumber
           end
         end
         
+        rule = find_matching_rule_for number, region: region, flags: flags
+        rule ||= find_matching_rule_for number, region: region
+        return format number, rule.pattern, intl_prefix: intl_prefix if rule
+        
         if trunk_prefix
           # Strip trunk prefix from number
           number = number[trunk_prefix.count(DIGITS)..-1]
