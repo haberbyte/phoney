@@ -10,7 +10,7 @@ module PhoneNumber
         intl_prefix  = international_call_prefix_for number
         country_code = extract_country_code number
         trunk_prefix = extract_trunk_prefix number
-        region       = PhoneNumber.region
+        region       = options[:region] || PhoneNumber.region
         flags        = []
         
         if intl_prefix

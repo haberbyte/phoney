@@ -79,4 +79,8 @@ class FormatterTest < MiniTest::Unit::TestCase
     assert_equal "123", format("123", "c ###")
     assert_equal "123", format("123", "c n ###")
   end
+  
+  def test_format_number_with_double_international_prefix
+    assert_equal "+011 49 40", PhoneNumber::Parser.parse("+0114940")
+  end
 end
