@@ -1,4 +1,4 @@
-module PhoneNumber
+module Phoney
   module Formatter
     # Returns the string formatted according to a pattern.
     #
@@ -82,7 +82,7 @@ module PhoneNumber
     end
     
     def international_call_prefix_for(input, options={})
-      options[:region] ||= PhoneNumber.region
+      options[:region] ||= Phoney.region
       
       return nil if input.length == 0
       
@@ -102,24 +102,24 @@ module PhoneNumber
     
     # TODO: handle case where international call prefix implicitly specifies country (e.g. tz: "005->254")
     def extract_country_code(input, options={})
-      options[:region] ||= PhoneNumber.region
+      options[:region] ||= Phoney.region
       intl_prefix = international_call_prefix_for(input, region: options[:region])
       
       # only try to extract a country code if we're dialing internationally
       if intl_prefix
         rest   = input[intl_prefix.count(NUMPAD_CHARS)..-1]
-        region = PhoneNumber::Region.all.find { |r| rest.start_with? r.country_code.to_s }
+        region = Phoney::Region.all.find { |r| rest.start_with? r.country_code.to_s }
         
         region.country_code.to_s if region
       end
     end
     
     def extract_trunk_prefix(input, options={})
-      options[:region] ||= PhoneNumber.region
+      options[:region] ||= Phoney.region
       
       intl_prefix  = international_call_prefix_for input
       country_code = extract_country_code(input, region: options[:region])
-      region_scope = country_code.nil? ? options[:region] : PhoneNumber::Region[country_code]
+      region_scope = country_code.nil? ? options[:region] : Phoney::Region[country_code]
       
       if intl_prefix
         # Strip international prefix from number

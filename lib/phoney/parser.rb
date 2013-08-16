@@ -1,6 +1,6 @@
 require 'strscan'
 
-module PhoneNumber
+module Phoney
   module Parser
     class << self
       include Formatter
@@ -10,13 +10,13 @@ module PhoneNumber
         intl_prefix  = international_call_prefix_for number
         country_code = extract_country_code number
         trunk_prefix = extract_trunk_prefix number
-        region       = options[:region] || PhoneNumber.region
+        region       = options[:region] || Phoney.region
         flags        = []
         
         if intl_prefix
           # Strip international prefix from number
           number = number[intl_prefix.count(NUMPAD_CHARS)..-1]
-          region = PhoneNumber::Region[country_code]
+          region = Phoney::Region[country_code]
           flags << :c
         end
         

@@ -1,4 +1,4 @@
-module PhoneNumber
+module Phoney
   class RuleGroup
     attr_reader :significant_digits, :rules
     

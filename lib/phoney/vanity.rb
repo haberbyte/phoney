@@ -1,4 +1,4 @@
-module PhoneNumber
+module Phoney
   # Helper module that maps vanity numbers to digit numbers.
   module Vanity
     VANITY_REGEXP = /\A\d{3}[a-zA-Z]{6,12}\Z/
