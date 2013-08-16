@@ -4,7 +4,7 @@ require 'phoney/region'
 require 'phoney/formatter'
 require 'phoney/parser'
 
-module PhoneNumber
+module Phoney
   PLACEHOLDER_CHAR = '#'
   DIGITS           = '0123456789'
   NUMPAD_CHARS     = '+#*'+DIGITS
@@ -80,7 +80,7 @@ module PhoneNumber
       when :national
         Parser::parse("#{area_code} #{number}", country_code)
       when :local
-        STDERR.puts "Warning: Using local format without setting a default area code!?" if PhoneNumber.area_code.nil?
+        STDERR.puts "Warning: Using local format without setting a default area code!?" if Phoney.area_code.nil?
         Parser::parse(number, country_code)
       else
         raise "The format #{fmt} doesn't exist'"
@@ -102,4 +102,4 @@ module PhoneNumber
 end
 
 # Load our region file when we require the library
-PhoneNumber::Region.load
+Phoney::Region.load

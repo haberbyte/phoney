@@ -3,10 +3,10 @@ require 'phoney'
 
 require 'io/console'
 
-PhoneNumber.region = ARGV.first||'us'
+Phoney.region = ARGV.first||'us'
 
 input  = ''
-prompt = "(Ctrl-C to exit) #[#{PhoneNumber.region.country_abbr}]: "
+prompt = "(Ctrl-C to exit) #[#{Phoney.region.country_abbr}]: "
 print prompt
 
 while ch = STDIN.getch do
@@ -20,7 +20,7 @@ while ch = STDIN.getch do
     input << ch
   end
   
-  output = PhoneNumber::Parser.parse input
+  output = Phoney::Parser.parse input
   
   print "\r#{prompt}"
   print output

@@ -3,7 +3,7 @@ require "phoney/version"
 
 Gem::Specification.new do |s|
   s.name = 'phoney'
-  s.version = PhoneNumber::VERSION
+  s.version = Phoney::VERSION
   s.author = 'Jan Habermann'
   s.email = 'jan@habermann24.com'
   s.homepage = 'http://github.com/habermann24/phoney'

@@ -1,6 +1,6 @@
 require 'set'
 
-module PhoneNumber
+module Phoney
   class Region
     REGION_FILE = File.join(File.dirname(__FILE__), '..', 'data', 'regions.bin')
     
