@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    phoney (0.9.9)
+    phoney (0.2.0)
 
 GEM
   remote: http://rubygems.org/
@@ -16,3 +16,6 @@ DEPENDENCIES
   minitest
   phoney!
   rake
+
+BUNDLED WITH
+   1.17.1
